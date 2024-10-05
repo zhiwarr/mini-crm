@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use App\PermissionEnum;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -37,6 +39,7 @@ class UserController extends Controller
     }
     public function destroy(User $user)
     {
+        Gate::authorize(PermissionEnum::MANAGE_USER->value);
         $user->delete();
         return redirect()->route('users.index')->with('success', 'User deleted successfully.');
     }

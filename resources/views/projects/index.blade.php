@@ -33,6 +33,8 @@
                                     <td class="py-3 flex justify-center px-6 text-center">
                                         <a href="{{ route('projects.edit',$project) }}"
                                             class="bg-blue-500 text-white px-4 py-2 rounded-md">Edit</a>
+                                        @can(\App\PermissionEnum::DELETE_PROJECT)
+
                                         <form action="{{ route('projects.destroy',$project) }}" method="POST"
                                             onsubmit="return confirm('are u sure?')">
                                             @csrf
@@ -40,6 +42,7 @@
                                             <button type="submit"
                                                 class="bg-red-500 text-white px-4 py-2 rounded-md ml-2">Delete</button>
                                         </form>
+                                        @endcan
                                     </td>
                                 </tr>
                                 @endforeach
